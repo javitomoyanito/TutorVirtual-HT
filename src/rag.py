@@ -1,0 +1,1 @@
+# Buscador simple sobre /kb (BM25)

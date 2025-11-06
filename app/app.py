@@ -1,0 +1,1 @@
+# Streamlit/Gradio (formulario + resultados + PDF)

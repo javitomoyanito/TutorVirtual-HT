@@ -1,0 +1,1 @@
+# Reglas de etiqueta (LAB solo para label)
