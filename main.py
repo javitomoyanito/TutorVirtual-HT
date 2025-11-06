@@ -1,16 +1,20 @@
-# FastAPI endpoints: /predict y /coach
-from fastapi import FastAPI, HTTPException
+# FastAPI endpoints: /predict, /coach y /predict_risk
+from fastapi import FastAPI, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from model import predict_student_performance
 from coach import generate_coaching_plan
+from typing import Any, Dict
+
+# ✅ Nuevo: motor de riesgo
+from src.risk_model import predict_risk
 
 app = FastAPI(title="Hackathon Educación API")
 
 # Habilitar CORS (para integrar con el front)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Cambia luego por el dominio del front
+    allow_origins=["*"],  # Cambiar luego por el dominio del front
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,7 +29,20 @@ class CoachRequest(BaseModel):
     student_id: str
     data: dict
 
-# Endpoint /predict
+# ✅ Modelo para el riesgo (se admiten valores opcionales)
+class RiskInput(BaseModel):
+    GEN_ALU: str | None = None
+    EDAD_ALU: float | None = None
+    COD_ENSE2: int | None = None
+    COD_GRADO2: int | None = None
+    COD_JOR: int | None = None
+    TASA_ASISTENCIA_ANUAL: float | None = None
+    PROM_GRAL: float | None = None
+    PROM_GRAL_PCT: float | None = None
+    CATEGORIA_ASIS_ANUAL: str | None = None
+
+
+# ✅ Existing endpoints
 @app.post("/predict")
 async def predict(request: PredictRequest):
     try:
@@ -34,7 +51,7 @@ async def predict(request: PredictRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-# Endpoint /coach
+
 @app.post("/coach")
 async def coach(request: CoachRequest):
     try:
@@ -42,3 +59,22 @@ async def coach(request: CoachRequest):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ✅ Nuevo endpoint: Motor de Riesgo (acepta plano o {"data": {...}})
+@app.post("/predict_risk")
+async def api_predict_risk(payload: Dict[str, Any] = Body(...)):
+    try:
+        result = predict_risk(payload)  # risk_model ya desenrolla si viene {"data": {...}}
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/")
+def root():
+    return {"status": "ok", "service": "Hackathon Educación API"}
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
