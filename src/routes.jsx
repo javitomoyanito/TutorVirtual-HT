@@ -5,6 +5,7 @@ import RegistroUsuario from "./pages/main/RegistroUsuario";
 import Login from "./pages/main/Login";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import Navbar from "./components/nav.jsx";
+
 const routes = [
   {
     element: <App />,
