@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body { @apply bg-orange-50 text-orange-900 font-rounded; }
+  body {
+    background-image:
+      radial-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+      radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size: 16px 16px, 28px 28px;
+    background-position: 0 0, 8px 8px;
+  }
+}
+
+@layer components {
+  .card { @apply bg-white/95 rounded-2xl shadow-soft border border-orange-200; }
+  .btn { @apply inline-flex items-center gap-2 rounded-xl px-4 py-2 font-semibold transition; }
+  .btn-primary { @apply btn bg-orange-500 text-white hover:bg-orange-600; }
+  .btn-ghost { @apply btn bg-orange-200/80 hover:bg-orange-300; }
+  .link { @apply underline decoration-orange-500 hover:text-orange-600; }
+}
