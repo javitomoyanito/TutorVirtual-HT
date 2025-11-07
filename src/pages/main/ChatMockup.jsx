@@ -73,7 +73,7 @@ function ChatMockup() {
                     />
                     <button
                         type="submit"
-                        className="px-5 py-3 bg-teal-800 hover:bg-teal-900 text-white font-bold rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
+                        className="px-5 py-3 bg-orange-900 hover:bg-teal-900 text-white font-bold rounded-lg focus:outline-none focus:shadow-outline transition duration-200"
                     >
                         Enviar
                     </button>

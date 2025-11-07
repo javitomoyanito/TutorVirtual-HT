@@ -8,34 +8,41 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert(`Intentando iniciar sesión como ${mode} con usuario: ${usuario}`);
+    console.log(`Intentando iniciar sesión como ${mode} con usuario: ${usuario}`);
     console.log(`Modo: ${mode}, Usuario: ${usuario}, Contraseña: ${contrasena}`);
   };
-
 
   const formPositionClass = mode === 'profesor'
     ? 'md:justify-end' 
     : 'md:justify-start'; 
 
   const accentColor = mode === 'profesor'
-    ? 'bg-orange-700 hover:bg-red-700 focus:ring-red-500' 
-    : 'bg-orange-500 hover:bg-teal-900 focus:ring-teal-500'; 
+    ? 'bg-orange-700 hover:bg-orange-800 focus:ring-red-500' 
+    : 'bg-orange-500 hover:bg-orange-600 focus:ring-teal-500'; 
+
   return (
-    <div className="min-h-screen bg-orange-950 flex flex-col items-center p-4">
+    <div 
+      className="min-h-screen bg-orange-950 flex flex-col items-center p-4"
+    >
       <div 
-        className={`w-full max-w-4xl flex items-center mt-20 transition-transform duration-1000  ${formPositionClass}`}
+        // Contenedor para la transición lateral (se extiende a todo el ancho)
+        className={`w-full max-w-7xl flex items-center transition-all duration-500 ease-in-out p-4 ${formPositionClass}`} 
       >
-        <form onSubmit={handleSubmit} className="bg-white p-8 md:p-10 rounded-xl shadow-2xl w-full max-w-md">
-          <div className="flex justify-center mb-4 p-3 min-w-0 ">
-            <img className="size-64 rounded-xl shadow-2xl" src="./public/images/solari_icon.png" alt="" />
+        {/* FORMULARIO: P-6 y MAX-W-SM para ancho compacto */}
+        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm">
+          <div className="flex justify-center mb-4 p-3 min-w-0">
+            {/* IMAGEN: SIZE-52 para ancho compacto */}
+            <img className="size-52 rounded-xl shadow-2xl" src="./public/images/solari_icon.png" alt="Logo Solari AI" />
           </div>
-          <div className="text-center text-5xl mb-6 font-extrabold text-gray-900 font-sans shadow-500/50">
+          {/* TÍTULO PRINCIPAL */}
+          <div className="text-center text-4xl mb-4 font-extrabold text-gray-900 font-sans shadow-500/50">
             SOLARI AI
           </div>
-          <h2 className={`text-2xl font-semibold text-center mb-6 transition-colors duration-300 ${mode === 'profesor' ? 'text-orange-700' : 'text-orange-500'}`}>
-            Iniciar Sesión como {mode === 'profesor' ? 'Profesor' : 'Estudiante'}
+          {/* TÍTULO SECUNDARIO */}
+          <h2 className={`text-2xl font-semibold text-center mb-4 transition-colors duration-300 ${mode === 'profesor' ? 'text-orange-700' : 'text-orange-500'}`}>
+            Iniciar como {mode === 'profesor' ? 'Profesor' : 'Estudiante'}
           </h2>
-          <div className="flex rounded-lg bg-gray-100 p-1 mb-8">
+          <div className="flex rounded-lg bg-gray-100 p-1 mb-6">
             <button
               type="button" 
               onClick={() => setMode('estudiante')}
@@ -67,7 +74,8 @@ function Login() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-teal-500"
             />
           </div>
-          <div className="mb-6">
+          {/* CAMBIO 2: Reducir margen inferior de la contraseña (mb-6 -> mb-4) */}
+          <div className="mb-4">
             <input
               type="password"
               id="contrasena"
@@ -83,7 +91,8 @@ function Login() {
           >
             Entrar
           </button>
-          <div className="text-center mt-6 text-gray-600 text-sm">
+          {/* CAMBIO 3: Reducir margen superior del enlace (mt-6 -> mt-4) */}
+          <div className="text-center mt-4 text-gray-600 text-sm">
             ¿No tienes cuenta?{' '}
             <a href="#" className="text-orange-500 hover:underline">
               Regístrate
